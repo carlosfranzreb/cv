@@ -149,7 +149,7 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 \renewcommand{\section}[1]{
   \par\vspace{\parskip}
   {%
-    \LARGE\headingfont\color{headercolor}%
+    \Large\headingfont\color{ipsgreen}%
     \vspace{-1mm}
     \@sectioncolor #1%
   }
