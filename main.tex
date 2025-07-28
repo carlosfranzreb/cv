@@ -1,311 +1,336 @@
-\documentclass[]{commands}
-\usepackage{afterpage}
-\usepackage{hyperref}
-\usepackage{color}
-\usepackage{xcolor}
-\PassOptionsToPackage{cmyk}{xcolor}
-\usepackage{fontspec}
-\usepackage{fontawesome}
-\usepackage{marvosym}
-\usepackage{textcomp}
-\usepackage{float} % to position signature
-\usepackage{adjustbox}
-\usepackage{calc}
-\usepackage{enumitem} % to customize indent of bullet points via \itemize
-\usepackage{metalogo}
-\usepackage{dtklogos}
-\usepackage[utf8]{inputenc}	
-\usepackage{tikz}
-\usetikzlibrary{mindmap,shadows,positioning}
-\hypersetup{
-    pdftitle={},
-    pdfauthor={},
-    pdfsubject={},
-    pdfkeywords={},
-    colorlinks=false,           % no lik border color
-    allbordercolors=white       % white border color for all
-}
+\documentclass[10pt, letterpaper]{article}
 
-% \addbibresource{bibliography.bib}
-\RequirePackage{xcolor}
-\definecolor{lightgray}{HTML}{777788}
-\definecolor{centergray}{HTML}{B9B9C9}
-% you can change ipsgreen to any color you like, but you´ll also have to change it in the reccius-cv-experiment.cls file
-\definecolor{ipsgreen}{HTML}{3B6746}
+% Packages:
+\usepackage[
+    ignoreheadfoot, % set margins without considering header and footer
+    top=2 cm, % seperation between body and page edge from the top
+    bottom=2 cm, % seperation between body and page edge from the bottom
+    left=2 cm, % seperation between body and page edge from the left
+    right=2 cm, % seperation between body and page edge from the right
+    footskip=1.0 cm, % seperation between body and footer
+    % showframe % for debugging 
+]{geometry} % for adjusting page geometry
+\usepackage[explicit]{titlesec} % for customizing section titles
+\usepackage{tabularx} % for making tables with fixed width columns
+\usepackage{array} % tabularx requires this
+\usepackage[dvipsnames]{xcolor} % for coloring text
+\definecolor{primaryColor}{RGB}{0, 79, 144} % define primary color
+\usepackage{enumitem} % for customizing lists
+\usepackage{fontawesome5} % for using icons
+\usepackage{amsmath} % for math
+\usepackage[
+    pdftitle={Carlos Franzreb's CV},
+    pdfauthor={Carlos Franzreb},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref} % for links, metadata and bookmarks
+\usepackage[pscoord]{eso-pic} % for floating text on the page
+\usepackage{calc} % for calculating lengths
+\usepackage{bookmark} % for bookmarks
+\usepackage{lastpage} % for getting the total number of pages
+\usepackage{changepage} % for one column entries (adjustwidth environment)
+\usepackage{paracol} % for two and three column entries
+\usepackage{ifthen} % for conditional statements
+\usepackage{needspace} % for avoiding page brake right after the section title
+\usepackage{iftex} % check if engine is pdflatex, xetex or luatex
 
-% NAME AND TAGLINE
+% Ensure that generate pdf is machine readable/ATS parsable:
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+\usepackage[default, type1]{sourcesanspro} 
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt} % remove space before adjustwidth environment
+\pagestyle{empty} % no header or footer
+\setcounter{secnumdepth}{0} % no section numbering
+\setlength{\parindent}{0pt} % no indentation
+\setlength{\topskip}{0pt} % no top skip
+\setlength{\columnsep}{0.15cm} % set column seperation
+
+\titleformat{\section}{
+    % avoid page braking right after the section title
+    \needspace{4\baselineskip}
+    % make the font size of the section title large and color it with the primary color
+    \Large\color{primaryColor}
+}{
+}{
+}{
+    % print bold title, give 0.15 cm space and draw a line of 0.8 pt thickness
+    % from the end of the title to the end of the body
+    \textbf{#1}\hspace{0.15cm}\titlerule[0.8pt]\hspace{-0.1cm}
+}[] % section title formatting
+
+\titlespacing{\section}{
+    % left space:
+    -1pt
+}{
+    % top space:
+    0.3 cm
+}{
+    % bottom space:
+    0.2 cm
+} % section title spacing
+
+% \renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$} % custom bullet points
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.4 cm + 10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights
+
+\newenvironment{highlightsforbulletentries}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=10pt
+    ]
+}{
+    \end{itemize}
+} % new environment for highlights for bullet entries
+
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{
+        0.2 cm + 0.00001 cm
+    }{
+        0.2 cm + 0.00001 cm
+    }
+}{
+    \end{adjustwidth}
+} % new environment for one column entries
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for two column entries
+
+\newenvironment{threecolentry}[3][]{
+    \onecolentry
+    \def\thirdColumn{#3}
+    \setcolumnwidth{1 cm, \fill, 4.5 cm}
+    \begin{paracol}{3}
+    {\raggedright #2} \switchcolumn
+}{
+    \switchcolumn \raggedleft \thirdColumn
+    \end{paracol}
+    \endonecolentry
+} % new environment for three column entries
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\color{primaryColor}\linespread{1.5}
+}{
+    \par\kern\topsep
+} % new environment for the header
+
+\newcommand{\placelastupdatedtext}{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(
+        \LenToUnit{\paperwidth-2 cm-0.2 cm+0.05cm},
+        \LenToUnit{\paperheight-1.0 cm}
+    ){\vtop{{\null}\makebox[0pt][c]{
+        \small\color{gray}\textit{Last updated in August 2025}\hspace{\widthof{Last updated in August 2025}}
+    }}}%
+  }%
+}%
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+
 \begin{document}
-\header{Carlos}{ Franzreb}{}
-      
-\vspace{0.3cm}   
-\color{lightgray}\noindent\makebox[\textwidth]{\rule{\paperwidth-0.4cm}{2.5pt}}
-% In the aside, each new line forces a line break
+    \newcommand{\AND}{\unskip
+        \cleaders\copy\ANDbox\hskip\wd\ANDbox
+        \ignorespaces
+    }
+    \newsavebox\ANDbox
+    \sbox\ANDbox{}
 
-% CONTACT
-\begin{info}
-    \begin{flushleft}
-    \small{20. May 1997}\hfill{\faCalendar}\\
+    \placelastupdatedtext
+    \begin{header}
+        \fontsize{30 pt}{30 pt}
+        \textbf{Carlos Franzreb}
+
+        \vspace{0.3 cm}
+
+        \normalsize
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{mailto:carlosfranzreb@gmail.com}{{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}carlosfranzreb@gmail.com}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://carlosfranzreb.github.io/}{{\footnotesize\faLink}\hspace*{0.13cm}carlosfranzreb.github.io}}%
+        \kern 0.25 cm%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://github.com/carlosfranzreb}{{\footnotesize\faGithub}\hspace*{0.13cm}carlosfranzreb}}%
+        \AND%
+        \kern 0.25 cm%
+        \mbox{\hrefWithoutArrow{https://scholar.google.com/citations?user=HHzYtWUAAAAJ&hl=en}{{\footnotesize\faGraduationCap}\hspace*{0.13cm}GScholar}}%
+    \end{header}
+
+    \vspace{0.2 cm}
+
+    % \section{Introduction}
+
+        I have experience in designing, training and evaluating machine learning models for speech, video and text, as well as communicating my work in oral and written form for audiences with various degrees of expertise.
+
+    \section{Education}
+
+        \begin{threecolentry}{\textbf{PhD}}{
+            May 2022 – Apr 2026
+        }
+            \textbf{Technical University of Berlin}
+            \begin{highlights}
+                \item \textbf{Title:} understanding and evaluating speaker anonymization.
+            \end{highlights}
+        \end{threecolentry}
+
+        \begin{threecolentry}{\textbf{MS}}{
+            Oct 2019 – Mar 2022
+        }
+            \textbf{Technical University of Berlin}, Computer Science
+            \begin{highlights}
+                \item \textbf{Courses:} machine learning, databases, algorithms.
+                \item \textbf{Thesis:} Subject indexing for institutional repositories.
+            \end{highlights}
+        \end{threecolentry}
+
+        \begin{threecolentry}{\textbf{BS}}{
+            Oct 2015 – Oct 2019
+        }
+            \textbf{Technical University of Berlin}, Computational Engineering Science
+            \begin{highlights}
+                \item \textbf{Courses:} physics, math, electrical engineering and programming.
+                \item \textbf{Thesis:} Evaluating FaaS as a data import agent.
+            \end{highlights}
+        \end{threecolentry}
     
-    \vspace{1mm}
+    \section{Experience}
+   
+        \begin{twocolentry}{
+            May 2022 – Apr 2026
+        }
+            \textbf{DFKI}, Researcher
+            \begin{highlights}
+                \item Investigated the real-time application of audiovisual anonymization.
+                \item Published a new anonymizer and improvements to the privacy evaluation.
+                \item Developed two open-source projects (see below in \textit{Projects}) 
+                \item Worked on improving the accent robustness of speech recognizers.
+            \end{highlights}
+        \end{twocolentry}
 
-    \small{Berlin, Germany}\hfill{\faMapMarker}\\
+        \vspace{0.1 cm}
+
+        \begin{twocolentry}{
+            June 2020 – May 2022
+        }
+            \textbf{Fraunhofer FOKUS}, Research assistant
+            \begin{highlights}
+                % \item Interdisciplinary research with sociologists on digitalization and science.
+                \item Developed a data harvester with Vert.x (asynchronous programming).
+                \item Research on knowledge graph embeddings and subject indexing.
+                \item Visualized tweets with D3.js to analyze the spread of misinformation.
+            \end{highlights}
+        \end{twocolentry}
+
+        \vspace{0.1 cm}
+
+        \begin{twocolentry}{
+            May 2019 – May 2020
+        }
+            \textbf{CLAAS 365FarmNet}, Business developer
+            \begin{highlights}
+                \item Visualized the user journey in the company's software, identifying weaknesses.
+                \item Developed a predictor for feature impact based on marketing personas.
+            \end{highlights}
+        \end{twocolentry}
     
-    \vspace{1mm}
+    \section{Internships}
+
+        \begin{samepage}
+            \begin{twocolentry}{
+                Sep 2018 – Dec 2018
+            }
+                \textbf{deZem}, IoT measurement and management
+                
+                \vspace{0.05 cm}
+                
+                Automated ticketing processes and helped with customer support.
+
+            \end{twocolentry}
+        \end{samepage}
+
+        \vspace{0.1 cm}
+
+        \begin{samepage}
+            \begin{twocolentry}{
+                Sep 2017 – Oct 2017
+            }
+                \textbf{The Cloud Group}, web design
+                
+                \vspace{0.05 cm}
+                
+                Designed SQL databases and learned full-stack development with PHP and JQuery.
+
+            \end{twocolentry}
+        \end{samepage}
     
-    {\small +49 1575 2836912}\hfill{\Mobilefone}\\
+    \section{Open-source projects}
 
-    \vspace{.8mm}
-    
-    \href{mailto:carlosfranzreb@gmail.com}{\small{carlosfranzreb@gmail.com}\hfill{\Large\Letter}\hspace{0.6mm}{\small \faMousePointer}}\\
-    
-    \href{https://github.com/carlosfranzreb}{\small{carlosfranzreb}\hfill{\Large\faGithub}\hspace{0.6mm}{\small \faMousePointer}}\\
-    
-    \end{flushleft}
-\end{info}
+        \begin{twocolentry}{
+            \href{https://github.com/carlosfranzreb/spkanon_eval}{github/spane}
+        }
+            \textbf{Speaker Anonymization Evaluation (SpAnE)}
+            \begin{highlights}
+                \item Includes several anonymizers, datasets and a state-of-the-art privacy evaluation.
+                \item Utility evaluation with pre-trained models (e.g. Whisper).
+            \end{highlights}
+        \end{twocolentry}
 
-% SIDE BAR
-\begin{aside}
-    ~
+        \vspace{0.1 cm}
 
-% PICTURE
-\vspace{-3.5cm}
-\begin{figure}[ht]
-	\hspace{0.3cm}
-	\includegraphics[width=.71\linewidth]{img/portrait.jpg}
-\end{figure}
+        \begin{twocolentry}{
+            \href{https://github.com/carlosfranzreb/ravas}{github/ravas}
+        }
+            \textbf{Real-time Audiovisual Anonymization System (RAVAS)}
+            
+            Audio and video are anonymized locally and can be used in video-calls.
 
-% INTERESTS
-\vspace{3.5mm}
-\section{Interests}
-\vspace{3.5mm}
+        \end{twocolentry}
 
-I am interested in algorithms, especially those that learn from data. I find the whole process appealing, from deciding on how to store the data to designing the visualization of the results.
+        \vspace{0.1 cm}
 
+        \begin{twocolentry}{
+            \href{https://github.com/carlosfranzreb/myclimbz}{github/myclimbz}
+        }
+            \textbf{myclimbz - CRUD app for logging climbs}
 
-% LANGUAGES
-\vspace{3.5mm}
-\section{Languages}
-\vspace{3.5mm}
+            Videos can be clipped on-device, assisted by an AI trained with climbing videos.
+            
+        \end{twocolentry}
 
-\textbf{Spanish}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-
-\textbf{English}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-
-\textbf{German}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-
-% SKILLS
-\vspace{3.5mm}
-\section{Skills}
-\vspace{3.5mm}
-
-\textbf{Python}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-
-\textbf{Machine learning}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-
-\textbf{Databases}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-
-\textbf{Java}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-
-\textbf{Web dev}\hfill
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/IPSGreenDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-\includegraphics[scale=0.11]{img/WhiteDots.png}
-
-% Other interests
-\vspace{3.5mm}
-\section{Other interests}
-\vspace{3.5mm}
-
-\faBook \hspace{3mm} \textbf{Reading}
-
-\faPaintBrush \hspace{3mm} \textbf{Art}
-
-\faTrophy \hspace{3mm} \textbf{Chess}
-
-\faSigning \hspace{3mm} \textbf{Climbing}
-
-\faBattery \hspace{3mm} \textbf{Running}
-
-\end{aside}
-
-\newcommand{\eduspace}{\vspace*{0.85mm}}
-\newcommand{\eduspaceII}{\vspace*{0.8mm}}
-\newcommand{\jobspace}{\vspace*{-4.2mm}}
-
-% EXPERIENCE
-\section{Experience}
-\begin{entrylist}
-  \entry
-    {June 2020 - now}
-    {Research assistant | }
-    { \href{https://www.fokus.fraunhofer.de/}{\small Fraunhofer FOKUS \faMousePointer}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Berlin}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Interdisciplinary research with sociologists on digitalization and science.
-        \item Developed a data harvester with Vert.x (asynchronous programming).
-        \item Research on knowledge graph embeddings and subject indexing.
-        \item Retrieved and visualized tweets with D3.js to analyse the spread of \\ 
-            misinformation for a paper which has been submitted for review.\\
-    \end{itemize}}
-
-  \entry
-    {May 2019 - May 2020}
-    {Business developer | }
-    { \href{https://www.365farmnet.com/en/}{\small 365FarmNet \faMousePointer}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Berlin}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Visualized the journey of the users in the company's software.
-        \item Developed a software tool that predicted the impact of a new \\
-            feature based on the marketing personas. \\
-    \end{itemize}}
-    
-  \entry
-    {Sep. 2018 - Dec. 2018}
-    {Intern | }
-    { \href{https://www.dezem.de/en/}{\small deZem \faMousePointer}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Berlin}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Developed software to automate processes of the marketing team.
-        \item Translated software manuals and assisted users with the software. \\
-    \end{itemize}}
-    
-  \entry
-    {Sep. 2017 - Oct. 2017}
-    {Intern | }
-    { \href{https://thecloud.group/}{\small The Cloud Group \faMousePointer}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Madrid}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Designed SQL databases for various software tools. 
-        \item Full-stack development of software with PHP and JQuery. \\
-    \end{itemize}}
-    
-  \entry
-    {Sep. 2016 - Oct. 2016}
-    {Intern | }
-    { \href{https://www.siemens.com/global/en.html}{\small Siemens \faMousePointer}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Berlin}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Worked in a factory of the energy management division. \\
-    \end{itemize}}
-    
-  \entry
-    {Sep. 2013 - May 2015}
-    {Basketball coach | }
-    {{\small Colegio San Patricio}}
-    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Madrid}}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Assistant coach during my last two high school years. \\
-    \end{itemize}}
-
-\end{entrylist}
-
-% EDUCATION
-\section{Education}
-\begin{entrylist}
- 
-   \entry
-    {Oct. 2019 - Mar. 2022}
-    {MS Computer Science | }
-    { \href{https://www.tu.berlin/en/}{\small TU Berlin \faMousePointer}}
-    {}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Focus on cognitive systems.
-        \item Project: developed a small relational database with Java.
-        \item Project: built an LSTM network for protein structure prediction in PyTorch.
-        \item Thesis: Subject indexing for institutional repositories.\\
-    \end{itemize}}
-    
-  \entry
-    {Oct. 2015 - Oct. 2019}
-    {BS Computational Engineering Science | }
-    { \href{https://www.tu.berlin/en/}{\small TU Berlin \faMousePointer}}
-    {}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item Thesis: Evaluating FaaS as a data import agent.\\
-    \end{itemize}}
-
-  \entry
-    {Sep. 2009 - May 2015}
-    {High School | }
-    { \href{https://colegiosanpatriciomadrid.com/en}{\small Colegio San Patricio \faMousePointer}}    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Madrid}}
-    {}
-    
-  \entry
-    {Aug. 2012 - May 2013}
-    {Year abroad | }
-    { \href{https://www.mercersburg.edu/}{\small Mercersburg Academy \faMousePointer}}    {\normalsize\textbf{\color{ipsgreen}\faMapMarker\space Pennsylvania, USA}}
-    {}
-\end{entrylist}
-
-% PROJECTS
-\section{Other projects}
-\begin{entrylist}
- 
-   \entry
-    {Dec. 2019 - now}
-    {Cooking blog | }
-    {\href{https://www.saludypimienta.com/}{\small Salud y Pimienta \faMousePointer}}
-    {}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item A website for my mother's recipes developed with Flask (Python).\\
-    \end{itemize}}
-    
-   \entry
-    {Jan. 2017 - May 2017}
-    {Employee scheduling software}
-    {}
-    {}
-    {\jobspace
-    \begin{itemize}[leftmargin=*, itemsep = 0.1em]
-        \item A scheduling software developed with PHP and AJAX for a small company.\\
-    \end{itemize}}
-    \vspace{-4mm}
-\end{entrylist}
-\let\clearpage\relax
 \end{document}
