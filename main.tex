@@ -196,62 +196,52 @@
 
     % \section{Introduction}
 
-        I have experience in designing, training and evaluating machine learning models for speech, video and text, as well as communicating my work in oral and written form for audiences with various degrees of expertise.
+        I have experience in designing, training and evaluating deep learning models for speech, video and text, as well as communicating my work in oral and written form for audiences with various degrees of expertise.
 
     \section{Education}
 
-        \begin{threecolentry}{\textbf{PhD}}{
-            May 2022 – Apr 2026
-        }
-            \textbf{Technical University of Berlin}
+        \begin{threecolentry}{\textbf{PhD}}{May 2022 – Apr 2026}
+            \textbf{Speaker anonymization} @ TU Berlin
             \begin{highlights}
-                \item \textbf{Title:} understanding and evaluating speaker anonymization.
+                \item First author of 7 publications at international conferences.  50+ citations.
             \end{highlights}
         \end{threecolentry}
 
-        \begin{threecolentry}{\textbf{MS}}{
-            Oct 2019 – Mar 2022
-        }
-            \textbf{Technical University of Berlin}, Computer Science
+        \begin{threecolentry}{\textbf{MS}}{Oct 2019 – Mar 2022}
+            \textbf{Computer Science} @ TU Berlin
             \begin{highlights}
                 \item \textbf{Courses:} machine learning, databases, algorithms.
                 \item \textbf{Thesis:} Subject indexing for institutional repositories.
             \end{highlights}
         \end{threecolentry}
 
-        \begin{threecolentry}{\textbf{BS}}{
-            Oct 2015 – Oct 2019
-        }
-            \textbf{Technical University of Berlin}, Computational Engineering Science
+        \begin{threecolentry}{\textbf{BS}}{Oct 2015 – Oct 2019}
+            \textbf{Computational Engineering Science} @ TU Berlin
             \begin{highlights}
-                \item \textbf{Courses:} physics, math, electrical engineering and programming.
+                \item \textbf{Courses:} physics, math, electrical engineering and computer-oriented math.
                 \item \textbf{Thesis:} Evaluating FaaS as a data import agent.
             \end{highlights}
         \end{threecolentry}
     
     \section{Experience}
    
-        \begin{twocolentry}{
-            May 2022 – Apr 2026
-        }
-            \textbf{DFKI}, Researcher
+        \begin{twocolentry}{May 2022 – Apr 2026}
+            \textbf{DFKI \& TU Berlin}, Researcher
             \begin{highlights}
-                \item Investigated the real-time application of audiovisual anonymization.
-                \item Published a new anonymizer and improvements to the privacy evaluation.
-                \item Developed two open-source projects (SpAnE and RAVAS, see below in \textit{Projects}) 
-                \item Worked on improving the accent robustness of speech recognizers.
+                \item Designed a voice anonymizer based on WavLM (published at Interspeech).
+                \item Improved the SOTA privacy evaluation, proposing new data and training approach.
+                \item Improved the accent robustness of speech recognizers with adversarial learning.
+                \item Participated in teaching, supervised student's theses and managed research projects
             \end{highlights}
         \end{twocolentry}
 
         \vspace{0.1 cm}
 
-        \begin{twocolentry}{
-            June 2020 – May 2022
-        }
+        \begin{twocolentry}{June 2020 – May 2022}
             \textbf{Fraunhofer FOKUS}, Research assistant
             \begin{highlights}
                 % \item Interdisciplinary research with sociologists on digitalization and science.
-                \item Developed a data harvester with Vert.x (asynchronous programming).
+                \item Developed a data harvester with Vert.x (asynchronous programming in Java).
                 \item Research on knowledge graph embeddings and subject indexing.
                 \item Visualized tweets with D3.js to analyze the spread of misinformation.
             \end{highlights}
@@ -259,78 +249,53 @@
 
         \vspace{0.1 cm}
 
-        \begin{twocolentry}{
-            May 2019 – May 2020
-        }
+        \begin{twocolentry}{May 2019 – May 2020}
             \textbf{CLAAS 365FarmNet}, Business developer
             \begin{highlights}
                 \item Visualized the user journey in the company's software, identifying weaknesses.
                 \item Developed a predictor for feature impact based on marketing personas.
             \end{highlights}
         \end{twocolentry}
-    
-    \section{Internships}
-
-        \begin{samepage}
-            \begin{twocolentry}{
-                Sep 2018 – Dec 2018
-            }
-                \textbf{deZem}, IoT measurement and management
-                
-                \vspace{0.05 cm}
-                
-                Automated ticketing processes and helped with customer support.
-
-            \end{twocolentry}
-        \end{samepage}
 
         \vspace{0.1 cm}
 
         \begin{samepage}
-            \begin{twocolentry}{
-                Sep 2017 – Oct 2017
-            }
-                \textbf{The Cloud Group}, web design
-                
-                \vspace{0.05 cm}
-                
-                Designed SQL databases and learned full-stack development with PHP and JQuery.
-
+            \begin{twocolentry}{Sep 2017 – Oct 2017}
+                \textbf{The Cloud Group}, Intern web developer
+                \begin{highlights}
+                    \item Designed SQL databases and learned full-stack development with PHP and JQuery.
+                \end{highlights}
             \end{twocolentry}
         \end{samepage}
     
     \section{Open-source projects}
 
-        \begin{twocolentry}{
-            \href{https://github.com/carlosfranzreb/spkanon_eval}{github/spane}
-        }
+        \begin{twocolentry}{\href{https://github.com/carlosfranzreb/spkanon_eval}{github/spane}}
             \textbf{Speaker Anonymization Evaluation (SpAnE)}
             \begin{highlights}
-                \item Includes several anonymizers, datasets and a state-of-the-art privacy evaluation.
+                \item Includes several anonymizers, datasets and the SOTA privacy evaluation.
                 \item Utility evaluation with pre-trained models (e.g. Whisper).
             \end{highlights}
         \end{twocolentry}
 
         \vspace{0.1 cm}
 
-        \begin{twocolentry}{
-            \href{https://github.com/carlosfranzreb/ravas}{github/ravas}
-        }
+        \begin{twocolentry}{\href{https://github.com/carlosfranzreb/ravas}{github/ravas}}
             \textbf{Real-time Audiovisual Anonymization System (RAVAS)}
-            
-            Audio and video are anonymized locally and can be used in video-calls.
-
+            \begin{highlights}
+                \item Designed for video-calls (0.1s latency). It's easy to install and use with the GUI.
+                \item Runs locally, with a multi-threaded and sync-preserving architecture.
+                \item Features a new voice anonymizer based on the streaming speech tokenizer Mimi.
+            \end{highlights}
         \end{twocolentry}
 
         \vspace{0.1 cm}
 
-        \begin{twocolentry}{
-            \href{https://github.com/carlosfranzreb/myclimbz}{github/myclimbz}
-        }
-            \textbf{myclimbz - CRUD app for logging climbs}
-
-            Videos can be clipped on-device, assisted by an AI trained with climbing videos.
-            
+        \begin{twocolentry}{\href{https://github.com/carlosfranzreb/myclimbz}{github/myclimbz}}
+            \textbf{myclimbz}, Flask web app for logging climbs
+            \begin{highlights}
+                \item Videos can be clipped on-device, assisted by a temporal transformer trained on climbing videos. ViT fine-tuned with LoRA is used for feature extraction.
+            \end{highlights}
         \end{twocolentry}
 
 \end{document}
