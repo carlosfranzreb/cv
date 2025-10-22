@@ -84,7 +84,7 @@
         topsep=0.10 cm,
         parsep=0.10 cm,
         partopsep=0pt,
-        itemsep=0pt,
+        itemsep=-0.2em,
         leftmargin=0.4 cm + 10pt
     ]
 }{
@@ -196,7 +196,7 @@
 
     % \section{Introduction}
 
-        I have experience in designing, training and evaluating deep learning models for speech, video and text, as well as communicating my work in oral and written form for audiences with various degrees of expertise.
+        I have experience in designing, training and evaluating deep learning models with PyTorch for speech, video and text, as well as communicating my work in oral and written form for audiences with various degrees of expertise.
 
     \section{Education}
 
@@ -210,7 +210,7 @@
         \begin{threecolentry}{\textbf{MS}}{Oct 2019 – Mar 2022}
             \textbf{Computer Science} @ TU Berlin
             \begin{highlights}
-                \item Courses: machine learning, databases, algorithms.
+                \item Courses: machine learning, deep learning, databases, algorithms.
                 \item Thesis: Subject indexing for institutional repositories.
             \end{highlights}
         \end{threecolentry}
@@ -228,10 +228,12 @@
         \begin{twocolentry}{May 2022 – Apr 2026}
             \textbf{DFKI \& TU Berlin}, Researcher
             \begin{highlights}
-                \item Designed a voice anonymizer based on WavLM (published at Interspeech).
-                \item Improved the SOTA privacy evaluation, proposing new data and training approach.
+                \item Developed and published a voice anonymizer based on WavLM, which anonymizes timbre, expressiveness and durations (\href{https://carlosfranzreb.github.io/private-knnvc}{Blog post}).
+                \item Improved the privacy evaluation, proposing new data and a new training approach.
                 \item Improved the accent robustness of speech recognizers with adversarial learning.
-                \item Participated in teaching, supervised student's theses and managed research projects
+                \item Conducted and published a subjective evaluation of an audiovisual anonymizer.
+                \item Participated in teaching and supervised student's theses (three published).
+                \item Coordinated research projects across interdisciplinary consortia.
             \end{highlights}
         \end{twocolentry}
 
@@ -240,10 +242,9 @@
         \begin{twocolentry}{June 2020 – May 2022}
             \textbf{Fraunhofer FOKUS}, Research assistant
             \begin{highlights}
-                % \item Interdisciplinary research with sociologists on digitalization and science.
+                \item Researched misinformation spread with sociologists (\href{https://github.com/carlosfranzreb/ego_tweetwork}{GitHub repository}).
                 \item Developed a data harvester with Vert.x (asynchronous programming in Java).
-                \item Research on knowledge graph embeddings and subject indexing.
-                \item Visualized tweets with D3.js to analyze the spread of misinformation.
+                \item Researched knowledge graph embeddings and subject indexing.
             \end{highlights}
         \end{twocolentry}
 
@@ -256,25 +257,14 @@
                 \item Developed a predictor for feature impact based on marketing personas.
             \end{highlights}
         \end{twocolentry}
-
-        \vspace{0.1 cm}
-
-        \begin{samepage}
-            \begin{twocolentry}{Sep 2017 – Oct 2017}
-                \textbf{The Cloud Group}, Intern web developer
-                \begin{highlights}
-                    \item Designed SQL databases and learned full-stack development with PHP and JQuery.
-                \end{highlights}
-            \end{twocolentry}
-        \end{samepage}
     
     \section{Open-source projects}
 
         \begin{twocolentry}{\href{https://github.com/carlosfranzreb/spkanon_eval}{github/spane}}
             \textbf{Speaker Anonymization Evaluation (SpAnE)}
             \begin{highlights}
-                \item Includes several anonymizers, datasets and the SOTA privacy evaluation.
-                \item Utility evaluation with pre-trained models (e.g. Whisper).
+                \item Python framework with CI pipeline, including SOTA anonymizers and datasets.
+                \item SOTA privacy evaluation, and utility evaluation with pre-trained models.
             \end{highlights}
         \end{twocolentry}
 
@@ -283,9 +273,9 @@
         \begin{twocolentry}{\href{https://github.com/carlosfranzreb/ravas}{github/ravas}}
             \textbf{Real-time Audiovisual Anonymization System (RAVAS)}
             \begin{highlights}
-                \item Designed for video-calls (0.1s latency). It's easy to install and use with the GUI.
+                \item Designed for video-calls (0.1s latency). It's easy to install and features a GUI.
                 \item Runs locally, with a multi-threaded and sync-preserving architecture.
-                \item Features a new voice anonymizer based on the streaming speech tokenizer Mimi.
+                \item Features a voice anonymizer I created, based on the Mimi neural audio codec.
             \end{highlights}
         \end{twocolentry}
 
@@ -294,7 +284,7 @@
         \begin{twocolentry}{\href{https://github.com/carlosfranzreb/myclimbz}{github/myclimbz}}
             \textbf{myclimbz}, Flask web app for logging climbs
             \begin{highlights}
-                \item Videos can be clipped on-device, assisted by a temporal transformer trained on climbing videos. ViT fine-tuned with LoRA is used for feature extraction.
+                \item Videos can be clipped on-device, assisted by a temporal transformer trained on my own climbing videos. ViT fine-tuned with LoRA is used for feature extraction.
             \end{highlights}
         \end{twocolentry}
 
